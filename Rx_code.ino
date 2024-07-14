@@ -1,5 +1,8 @@
 //****************************************
-//*
+/* Stryker - Reciever 
+   14.07.2024
+   Programme for Radio controlled car with 4 mecanum wheels.
+*/
 //****************************************
 
 #include <SPI.h>
