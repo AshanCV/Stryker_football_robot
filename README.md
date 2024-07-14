@@ -2,3 +2,5 @@
 Football robot car with nrf24 communication 
 
 synopsys robo competition " Synobot"
+
+updated code can be found in "Rx_code" and "Tx_code".
