@@ -71,15 +71,15 @@ for(int i=0; i<10; i++){
   sry=sry+ry;
   
 }
-data[0]=slx/10;
-data[1]=sly/10;
-data[2]=srx/10;
-data[3]=sry/10;
+data[0]=srx/10;
+data[1]=sry/10;
+data[2]=slx/10;
+data[3]=sly/10;
 
-data[0] = map(data[0], 0,1024, -255, 255); 
-data[1] = map(data[1], 0, 1024, -255, 255);
-data[2] = map(data[2], 0,1024, -255, 255); 
-data[3] = map(data[3], 0, 1024, -255, 255);
+data[0] = map(data[0], 0,1024, 255, -255); 
+data[1] = map(data[1], 0, 1024, 255, -255);
+data[2] = map(data[2], 0,1024, 255, -255); 
+data[3] = map(data[3], 0, 1024, 255, -255);
 
 if(data[0]>255){
   data[0]=255;
