@@ -1,5 +1,5 @@
 //****************************************
-/* Stryker - Reciever 
+/* Stryker - Receiver 
    14.07.2024
    Programme for Radio controlled car with 4 mecanum wheels.
 */
@@ -16,7 +16,7 @@ Servo L_arm;
 
 int data[5];
 
-RF24 radio(8, 7);  //CE, CSN
+RF24 radio(8, 7);  // CE, CSN
 
 const byte password[6] = "00001"; //*enter a security code
 
@@ -80,17 +80,17 @@ void loop() {
     Serial.print(data[2]); Serial.print("    "); Serial.print(data[3]); Serial.print("    ");
     Serial.print(data[4]); Serial.print("    ");
 
-    int xSpeed = map(abs(data[0] - 512), 0, 512, 0, 255);
-    int ySpeed = map(abs(data[1] - 512), 0, 512, 0, 255);
-    int rotationSpeed = map(abs(data[3] - 512), 0, 512, 0, 255);
+    int xSpeed = map(data[0], 0, 1023, 0, 255);
+    int ySpeed = map(data[1], 0, 1023, 0, 255);
+    int rotationSpeed = map(data[3], 0, 1023, 0, 255);
 
-    if (data[4]==1){
+    if (data[4] == 1) {
       R_arm.write(180);
-    } else if(data[4]==2 ){
+    } else if (data[4] == 2) {
       R_arm.write(0);
-    } else if(data[4]==3 ){
+    } else if (data[4] == 3) {
       L_arm.write(180);
-    } else if(data[4]==4){
+    } else if (data[4] == 4) {
       L_arm.write(0);
     }
 
@@ -132,126 +132,126 @@ void loop() {
 }
 
 void moveForward(int speed) {
-  analogWrite(RFF, speed);
-  analogWrite(RFB, 0);
-  analogWrite(RBF, speed);
-  analogWrite(RBB, 0);
-  analogWrite(LFF, speed);
-  analogWrite(LFB, 0);
-  analogWrite(LBF, speed);
-  analogWrite(LBB, 0);
+  SoftPWMSet(RFF, speed);
+  SoftPWMSet(RFB, 0);
+  SoftPWMSet(RBF, speed);
+  SoftPWMSet(RBB, 0);
+  SoftPWMSet(LFF, speed);
+  SoftPWMSet(LFB, 0);
+  SoftPWMSet(LBF, speed);
+  SoftPWMSet(LBB, 0);
 }
 
 void moveBackward(int speed) {
-  analogWrite(RFF, 0);
-  analogWrite(RFB, speed);
-  analogWrite(RBF, 0);
-  analogWrite(RBB, speed);
-  analogWrite(LFF, 0);
-  analogWrite(LFB, speed);
-  analogWrite(LBF, 0);
-  analogWrite(LBB, speed);
+  SoftPWMSet(RFF, 0);
+  SoftPWMSet(RFB, speed);
+  SoftPWMSet(RBF, 0);
+  SoftPWMSet(RBB, speed);
+  SoftPWMSet(LFF, 0);
+  SoftPWMSet(LFB, speed);
+  SoftPWMSet(LBF, 0);
+  SoftPWMSet(LBB, speed);
 }
 
 void moveRight(int speed) {
-  analogWrite(RFF, 0);
-  analogWrite(RFB, speed);
-  analogWrite(RBF, speed);
-  analogWrite(RBB, 0);
-  analogWrite(LFF, speed);
-  analogWrite(LFB, 0);
-  analogWrite(LBF, 0);
-  analogWrite(LBB, speed);
+  SoftPWMSet(RFF, 0);
+  SoftPWMSet(RFB, speed);
+  SoftPWMSet(RBF, speed);
+  SoftPWMSet(RBB, 0);
+  SoftPWMSet(LFF, speed);
+  SoftPWMSet(LFB, 0);
+  SoftPWMSet(LBF, 0);
+  SoftPWMSet(LBB, speed);
 }
 
 void moveLeft(int speed) {
-  analogWrite(RFF, speed);
-  analogWrite(RFB, 0);
-  analogWrite(RBF, 0);
-  analogWrite(RBB, speed);
-  analogWrite(LFF, 0);
-  analogWrite(LFB, speed);
-  analogWrite(LBF, speed);
-  analogWrite(LBB, 0);
+  SoftPWMSet(RFF, speed);
+  SoftPWMSet(RFB, 0);
+  SoftPWMSet(RBF, 0);
+  SoftPWMSet(RBB, speed);
+  SoftPWMSet(LFF, 0);
+  SoftPWMSet(LFB, speed);
+  SoftPWMSet(LBF, speed);
+  SoftPWMSet(LBB, 0);
 }
 
 void moveForwardLeft(int xSpeed, int ySpeed) {
   int speed = (xSpeed + ySpeed) / 2;
-  analogWrite(RFF, speed);
-  analogWrite(RFB, 0);
-  analogWrite(RBF, 0);
-  analogWrite(RBB, 0);
-  analogWrite(LFF, 0);
-  analogWrite(LFB, 0);
-  analogWrite(LBF, speed);
-  analogWrite(LBB, 0);
+  SoftPWMSet(RFF, speed);
+  SoftPWMSet(RFB, 0);
+  SoftPWMSet(RBF, 0);
+  SoftPWMSet(RBB, 0);
+  SoftPWMSet(LFF, 0);
+  SoftPWMSet(LFB, 0);
+  SoftPWMSet(LBF, speed);
+  SoftPWMSet(LBB, 0);
 }
 
 void moveForwardRight(int xSpeed, int ySpeed) {
   int speed = (xSpeed + ySpeed) / 2;
-  analogWrite(RFF, 0);
-  analogWrite(RFB, 0);
-  analogWrite(RBF, speed);
-  analogWrite(RBB, 0);
-  analogWrite(LFF, speed);
-  analogWrite(LFB, 0);
-  analogWrite(LBF, 0);
-  analogWrite(LBB, 0);
+  SoftPWMSet(RFF, 0);
+  SoftPWMSet(RFB, 0);
+  SoftPWMSet(RBF, speed);
+  SoftPWMSet(RBB, 0);
+  SoftPWMSet(LFF, speed);
+  SoftPWMSet(LFB, 0);
+  SoftPWMSet(LBF, 0);
+  SoftPWMSet(LBB, 0);
 }
 
 void moveBackwardRight(int xSpeed, int ySpeed) {
   int speed = (xSpeed + ySpeed) / 2;
-  analogWrite(RFF, 0);
-  analogWrite(RFB, speed);
-  analogWrite(RBF, 0);
-  analogWrite(RBB, 0);
-  analogWrite(LFF, 0);
-  analogWrite(LFB, 0);
-  analogWrite(LBF, 0);
-  analogWrite(LBB, speed);
+  SoftPWMSet(RFF, 0);
+  SoftPWMSet(RFB, speed);
+  SoftPWMSet(RBF, 0);
+  SoftPWMSet(RBB, 0);
+  SoftPWMSet(LFF, 0);
+  SoftPWMSet(LFB, 0);
+  SoftPWMSet(LBF, 0);
+  SoftPWMSet(LBB, speed);
 }
 
 void moveBackwardLeft(int xSpeed, int ySpeed) {
   int speed = (xSpeed + ySpeed) / 2;
-  analogWrite(RFF, 0);
-  analogWrite(RFB, 0);
-  analogWrite(RBF, 0);
-  analogWrite(RBB, speed);
-  analogWrite(LFF, 0);
-  analogWrite(LFB, speed);
-  analogWrite(LBF, 0);
-  analogWrite(LBB, 0);
+  SoftPWMSet(RFF, 0);
+  SoftPWMSet(RFB, 0);
+  SoftPWMSet(RBF, 0);
+  SoftPWMSet(RBB, speed);
+  SoftPWMSet(LFF, 0);
+  SoftPWMSet(LFB, speed);
+  SoftPWMSet(LBF, 0);
+  SoftPWMSet(LBB, 0);
 }
 
 void rotateClockwise(int speed) {
-  analogWrite(RFF, speed);
-  analogWrite(RFB, 0);
-  analogWrite(RBF, speed);
-  analogWrite(RBB, 0);
-  analogWrite(LFF, 0);
-  analogWrite(LFB, speed);
-  analogWrite(LBF, 0);
-  analogWrite(LBB, speed);
+  SoftPWMSet(RFF, speed);
+  SoftPWMSet(RFB, 0);
+  SoftPWMSet(RBF, speed);
+  SoftPWMSet(RBB, 0);
+  SoftPWMSet(LFF, 0);
+  SoftPWMSet(LFB, speed);
+  SoftPWMSet(LBF, 0);
+  SoftPWMSet(LBB, speed);
 }
 
 void rotateCounterclockwise(int speed) {
-  analogWrite(RFF, 0);
-  analogWrite(RFB, speed);
-  analogWrite(RBF, 0);
-  analogWrite(RBB, speed);
-  analogWrite(LFF, speed);
-  analogWrite(LFB, 0);
-  analogWrite(LBF, speed);
-  analogWrite(LBB, 0);
+  SoftPWMSet(RFF, 0);
+  SoftPWMSet(RFB, speed);
+  SoftPWMSet(RBF, 0);
+  SoftPWMSet(RBB, speed);
+  SoftPWMSet(LFF, speed);
+  SoftPWMSet(LFB, 0);
+  SoftPWMSet(LBF, speed);
+  SoftPWMSet(LBB, 0);
 }
 
 void stopMotors() {
-  analogWrite(RFF, 0);
-  analogWrite(RFB, 0);
-  analogWrite(RBF, 0);
-  analogWrite(RBB, 0);
-  analogWrite(LFF, 0);
-  analogWrite(LFB, 0);
-  analogWrite(LBF, 0);
-  analogWrite(LBB, 0);
+  SoftPWMSet(RFF, 0);
+  SoftPWMSet(RFB, 0);
+  SoftPWMSet(RBF, 0);
+  SoftPWMSet(RBB, 0);
+  SoftPWMSet(LFF, 0);
+  SoftPWMSet(LFB, 0);
+  SoftPWMSet(LBF, 0);
+  SoftPWMSet(LBB, 0);
 }
