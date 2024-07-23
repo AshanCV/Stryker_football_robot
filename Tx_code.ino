@@ -18,9 +18,9 @@
 #define Rbutton2 6
 #define Lbutton1 A5
 #define Lbutton2 5
+#define shootButton A4
 
-
-int data[5];
+int data[6];
 int lx; int ly;
 int rx; int ry;
 
@@ -52,7 +52,8 @@ bool ButtonR1 = false;
 bool ButtonR2 = false;
 bool ButtonL1 = false;
 bool ButtonL2 = false;
-
+bool shoot = false;
+   
 for(int i=0; i<10; i++){
   lx = analogRead(Lx);
   ly = analogRead(Ly);
@@ -99,6 +100,9 @@ data[4] += (ButtonR2)? 2 : 0 ;
 data[4] += (ButtonL1)? 3 : 0 ;
 data[4] += (ButtonL2)? 4 : 0 ;
 
+ shoot = digitalRead(shootButton);
+ data[5] = shoot;
+   
  radio.write(data, sizeof(data));
 Serial.print(data[0]); Serial.print("    ");Serial.print(data[1]);Serial.print("    ");
 Serial.print(data[2]); Serial.print("    ");Serial.print(data[3]);Serial.print("    ");
