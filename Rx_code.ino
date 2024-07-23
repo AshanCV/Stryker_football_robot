@@ -13,7 +13,7 @@
 Servo R_arm;
 Servo L_arm;
 
-int data[5];
+int data[6];
 
 RF24 radio(8, 7);  //CE, CSN
 
@@ -31,6 +31,7 @@ const int M = 80;
 #define LBB A2
 #define R_arm_pin 9
 #define L_arm_pin 10
+#define shootpin A3
 
 void setup() {
  
@@ -42,6 +43,7 @@ void setup() {
   pinMode(LFB, OUTPUT);
   pinMode(LBF, OUTPUT);
   pinMode(LBB, OUTPUT);
+   pinMode(shootpin, OUTPUT);
    digitalWrite(RFF, LOW);
   digitalWrite(RFB, LOW);
   digitalWrite(RBF, LOW);
@@ -50,6 +52,7 @@ void setup() {
   digitalWrite(LFB, LOW);
   digitalWrite(LBF, LOW);
   digitalWrite(LBB, LOW);
+     digitalWrite(shootpin, LOW);
 
   R_arm.attach(R_arm_pin);
  L_arm.attach(L_arm_pin);
@@ -76,7 +79,13 @@ void loop() {
      Serial.print(data[2]);Serial.print("    "); Serial.print(data[3]);Serial.print("    ");
      Serial.print(data[4]);Serial.print("    ");
 
+if (data[5]){
+digitalWrite(shootpin,HIGH);  
+}else{
+  digitalWrite(shootpin, LOW);
+}
 
+    
 if (data[4]==1){
    R_arm.write(180);
 }else if(data[4]==2 ){
