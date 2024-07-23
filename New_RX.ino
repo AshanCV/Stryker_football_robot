@@ -80,9 +80,9 @@ void loop() {
     Serial.print(data[2]); Serial.print("    "); Serial.print(data[3]); Serial.print("    ");
     Serial.print(data[4]); Serial.print("    ");
 
-    int xSpeed = map(data[0], 0, 1023, 0, 255);
-    int ySpeed = map(data[1], 0, 1023, 0, 255);
-    int rotationSpeed = map(data[3], 0, 1023, 0, 255);
+    int xSpeed = abs(data[0]);
+    int ySpeed = abs(data[1]);
+    int rotationSpeed = abs(data[3]);
 
     if (data[4] == 1) {
       R_arm.write(180);
