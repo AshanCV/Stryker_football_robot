@@ -1,6 +1,6 @@
 //****************************************
 /* Stryker - Receiver 
-   24.07.2024
+   14.07.2024
    Programme for Radio controlled car with 4 mecanum wheels.
 */
 //****************************************
@@ -20,7 +20,7 @@ RF24 radio(8, 7);  // CE, CSN
 
 const byte password[6] = "00001"; //*enter a security code
 
-const int M = 80;
+const int M = 60;
 
 #define RFF 2
 #define RFB 3
@@ -76,58 +76,64 @@ void loop() {
   while (radio.available()) {
     radio.read(data, sizeof(data));
 
-    Serial.print(data[0]); Serial.print("    "); Serial.print(data[1]); Serial.print("    "); 
-    Serial.print(data[2]); Serial.print("    "); Serial.print(data[3]); Serial.print("    ");
-    Serial.print(data[4]); Serial.print("    ");
+    // Serial.print(data[0]); Serial.print("    "); Serial.print(data[1]); Serial.print("    "); 
+    // Serial.print(data[2]); Serial.print("    "); Serial.print(data[3]); Serial.print("    ");
+    // Serial.print(data[4]); Serial.print("    ");
 
-    int xSpeed = abs(data[0]);
-    int ySpeed = abs(data[1]);
-    int rotationSpeed = abs(data[3]);
+    int ySpeed = abs(data[0])*(1.0);
+    int xSpeed = abs(data[1])*(1.0);
+    int rotationSpeed = abs(data[3])*(0.8);
 
-    if ((data[4] % 2)==0) {
+     int B1 = data[4] % 2;
+     int B2 = data[4] % 3;
+     int B3 = data[4] % 5;
+     int B4 = data[4] % 7;
+     
+    if (B1 == 0) {
       R_arm.write(180);
-    } else if ((data[4] % 3) == 0) {
+    } else if (B2 == 0) {
       R_arm.write(0);
     } 
-     if ((data[4] % 5)== 0) {
+     
+   if (B3 == 0) {
       L_arm.write(180);
-    } else if ((data[4] % 7) == 0) {
+    } else if (B4 == 0) {
       L_arm.write(0);
     }
 
-    if (data[0] > -M && data[0] < M && data[1] > -M && data[1] < M && data[2] > -M && data[2] < M && data[3] > -M && data[3] < M) {
+    if (abs(data[0]) < M && abs(data[1]) < M && abs(data[2]) < M && abs(data[3]) < M) {
       stopMotors();
-      Serial.println("data recv- stop");
-    } else if (data[0] > M && -M < data[1] && data[1] < M) {
+      //Serial.println("data recv- stop");
+    } else if (data[0] > M && abs(data[1]) < M) {
       moveForward(ySpeed);
-      Serial.println("data recv- forw");
-    } else if (data[0] < -M && -M < data[1] && data[1] < M) {
+      //Serial.println("data recv- forw");
+    } else if (data[0] < -M && abs(data[1]) < M) {
       moveBackward(ySpeed);
-      Serial.println("data recv- bacck");
-    } else if (-M < data[0] && data[0] < M && data[1] < -M) {
+      //Serial.println("data recv- bacck");
+    } else if (abs(data[0]) < M && data[1] < -M) {
       moveRight(xSpeed);
-      Serial.println("data recv- Right");
-    } else if (-M < data[0] && data[0] < M && data[1] > M) {
+      //Serial.println("data recv- Right");
+    } else if (abs(data[0]) < M && data[1] > M) {
       moveLeft(xSpeed);
-      Serial.println("data recv- Left");
+      //Serial.println("data recv- Left");
     } else if (data[0] > M && data[1] < -M) {
       moveForwardRight(xSpeed, ySpeed);
-      Serial.println("data recv- R trn");
+      //Serial.println("data recv- R trn");
     } else if (data[0] > M && data[1] > M) {
       moveForwardLeft(xSpeed, ySpeed);
-      Serial.println("data recv- L trn");
+      //Serial.println("data recv- L trn");
     } else if (data[0] < -M && data[1] < -M) {
       moveBackwardRight(xSpeed, ySpeed);
-      Serial.println("R trun back");
+      //Serial.println("R trun back");
     } else if (data[0] < -M && data[1] > M) {
       moveBackwardLeft(xSpeed, ySpeed);
-      Serial.println("L trun back");
+      //Serial.println("L trun back");
     } else if (data[3] > M) {
       rotateClockwise(rotationSpeed);
-      Serial.println("rotate CW");
+      //Serial.println("rotate CW");
     } else if (data[3] < -M) {
       rotateCounterclockwise(rotationSpeed);
-      Serial.println("rotate CCW");
+      //Serial.println("rotate CCW");
     }
   }
 }
