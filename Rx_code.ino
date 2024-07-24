@@ -84,13 +84,14 @@ void loop() {
     int ySpeed = abs(data[1]);
     int rotationSpeed = abs(data[3]);
 
-    if (data[4] == 1) {
+    if ((data[4] % 2)==0) {
       R_arm.write(180);
-    } else if (data[4] == 2) {
+    } else if ((data[4] % 3) == 0) {
       R_arm.write(0);
-    } else if (data[4] == 3) {
+    } 
+     if ((data[4] % 5)== 0) {
       L_arm.write(180);
-    } else if (data[4] == 4) {
+    } else if ((data[4] % 7) == 0) {
       L_arm.write(0);
     }
 
