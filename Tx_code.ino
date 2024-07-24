@@ -94,11 +94,11 @@ if(data[3]>255){
  ButtonL1 = digitalRead(Lbutton1);
  ButtonL2 = digitalRead(Lbutton2);
 
-data[4] = 0;
-data[4] += (ButtonR1)? 1 : 0 ;
-data[4] += (ButtonR2)? 2 : 0 ;
-data[4] += (ButtonL1)? 3 : 0 ;
-data[4] += (ButtonL2)? 4 : 0 ;
+data[4] = 1;
+data[4] = data[4] * (ButtonR1)? 2 : 1 ;
+data[4] = data[4] * (ButtonR2)? 3 : 1 ;
+data[4] = data[4] * (ButtonL1)? 5 : 1 ;
+data[4] = data[4] * (ButtonL2)? 7 : 1 ;
 
  shoot = digitalRead(shootButton);
  data[5] = shoot;
