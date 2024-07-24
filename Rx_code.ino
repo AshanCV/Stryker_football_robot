@@ -89,15 +89,15 @@ void loop() {
      int hasB3 = data[4] % 5;
      int hasB4 = data[4] % 7;
      
-    if (B1 == 0) {
+    if (hasB1 == 0) {
       R_arm.write(180);
-    } else if (B2 == 0) {
+    } else if (hasB2 == 0) {
       R_arm.write(0);
     } 
      
-   if (B3 == 0) {
+   if (hasB3 == 0) {
       L_arm.write(180);
-    } else if (B4 == 0) {
+    } else if (hasB4 == 0) {
       L_arm.write(0);
     }
 
