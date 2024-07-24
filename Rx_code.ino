@@ -78,7 +78,7 @@ void loop() {
 
     // Serial.print(data[0]); Serial.print("    "); Serial.print(data[1]); Serial.print("    "); 
     // Serial.print(data[2]); Serial.print("    "); Serial.print(data[3]); Serial.print("    ");
-    // Serial.print(data[4]); Serial.print("    ");
+     Serial.print(data[4]); Serial.println("    ");
 
     int ySpeed = abs(data[0])*(1.0);
     int xSpeed = abs(data[1])*(1.0);
