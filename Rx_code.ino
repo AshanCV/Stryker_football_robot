@@ -84,10 +84,10 @@ void loop() {
     int xSpeed = abs(data[1])*(1.0);
     int rotationSpeed = abs(data[3])*(0.8);
 
-     int B1 = data[4] % 2;
-     int B2 = data[4] % 3;
-     int B3 = data[4] % 5;
-     int B4 = data[4] % 7;
+     int hasB1 = data[4] % 2;
+     int hasB2 = data[4] % 3;
+     int hasB3 = data[4] % 5;
+     int hasB4 = data[4] % 7;
      
     if (B1 == 0) {
       R_arm.write(180);
