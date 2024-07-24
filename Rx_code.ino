@@ -90,7 +90,7 @@ void loop() {
      int hasB4 = data[4] % 7;
      
     if (hasB1 == 0) {
-      R_arm.write(180);
+        R_arm.write(180);
     } else if (hasB2 == 0) {
       R_arm.write(0);
     } 
@@ -104,6 +104,12 @@ void loop() {
     if (abs(data[0]) < M && abs(data[1]) < M && abs(data[2]) < M && abs(data[3]) < M) {
       stopMotors();
       //Serial.println("data recv- stop");
+    }else if (data[3] > M) {
+      rotateClockwise(rotationSpeed);
+      //Serial.println("rotate CW");
+    } else if (data[3] < -M) {
+      rotateCounterclockwise(rotationSpeed);
+      //Serial.println("rotate CCW");
     } else if (data[0] > M && abs(data[1]) < M) {
       moveForward(ySpeed);
       //Serial.println("data recv- forw");
@@ -128,13 +134,7 @@ void loop() {
     } else if (data[0] < -M && data[1] > M) {
       moveBackwardLeft(xSpeed, ySpeed);
       //Serial.println("L trun back");
-    } else if (data[3] > M) {
-      rotateClockwise(rotationSpeed);
-      //Serial.println("rotate CW");
-    } else if (data[3] < -M) {
-      rotateCounterclockwise(rotationSpeed);
-      //Serial.println("rotate CCW");
-    }
+    } 
   }
 }
 
