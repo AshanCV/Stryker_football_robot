@@ -1,6 +1,6 @@
 //****************************************
 /* Stryker - Receiver 
-   14.07.2024
+   25.07.2024
    Programme for Radio controlled car with 4 mecanum wheels.
 */
 //****************************************
@@ -14,7 +14,7 @@
 Servo R_arm;
 Servo L_arm;
 
-int data[5];
+int data[6];
 
 RF24 radio(8, 7);  // CE, CSN
 
@@ -32,6 +32,7 @@ const int M = 60;
 #define LBB A2
 #define R_arm_pin 9
 #define L_arm_pin 10
+#define shootpin A3
 
 void setup() {
   pinMode(RFF, OUTPUT);
@@ -42,6 +43,7 @@ void setup() {
   pinMode(LFB, OUTPUT);
   pinMode(LBF, OUTPUT);
   pinMode(LBB, OUTPUT);
+   pinMode(shootpin, OUTPUT);
   digitalWrite(RFF, LOW);
   digitalWrite(RFB, LOW);
   digitalWrite(RBF, LOW);
@@ -50,6 +52,7 @@ void setup() {
   digitalWrite(LFB, LOW);
   digitalWrite(LBF, LOW);
   digitalWrite(LBB, LOW);
+   digitalWrite(shootpin, LOW);
 
   R_arm.attach(R_arm_pin);
   L_arm.attach(L_arm_pin);
@@ -65,7 +68,7 @@ void setup() {
   SoftPWMSet(LBF, 0);
   SoftPWMSet(LBB, 0);
 
-  Serial.begin(9600);
+//  Serial.begin(9600);
   radio.begin();
   radio.openReadingPipe(0, password);
   radio.setPALevel(RF24_PA_MIN);
@@ -78,7 +81,7 @@ void loop() {
 
     // Serial.print(data[0]); Serial.print("    "); Serial.print(data[1]); Serial.print("    "); 
     // Serial.print(data[2]); Serial.print("    "); Serial.print(data[3]); Serial.print("    ");
-     Serial.print(data[4]); Serial.println("    ");
+   //  Serial.print(data[4]); Serial.println("    ");
 
     int ySpeed = abs(data[0])*(1.0);
     int xSpeed = abs(data[1])*(1.0);
@@ -88,6 +91,13 @@ void loop() {
      int hasB2 = data[4] % 3;
      int hasB3 = data[4] % 5;
      int hasB4 = data[4] % 7;
+
+     if (data[5]){
+digitalWrite(shootpin,HIGH);  
+}else{
+  digitalWrite(shootpin, LOW);
+}
+
      
     if (hasB1 == 0) {
         R_arm.write(180);
