@@ -85,7 +85,7 @@ void loop() {
 
     int ySpeed = abs(data[0])*(1.0);
     int xSpeed = abs(data[1])*(1.0);
-    int rotationSpeed = abs(data[3])*(0.8);
+    int rotationSpeed = abs(data[3])*(0.6);
 
      int hasB1 = data[4] % 2;
      int hasB2 = data[4] % 3;
@@ -193,51 +193,88 @@ void moveLeft(int speed) {
 }
 
 void moveForwardLeft(int xSpeed, int ySpeed) {
-  int speed = (xSpeed + ySpeed) / 2;
+  int speed = sqrt(sq(xSpeed) + sq(ySpeed));
+   int diff = xSpeed - ySpeed;
   SoftPWMSet(RFF, speed);
   SoftPWMSet(RFB, 0);
-  SoftPWMSet(RBF, 0);
-  SoftPWMSet(RBB, 0);
-  SoftPWMSet(LFF, 0);
-  SoftPWMSet(LFB, 0);
   SoftPWMSet(LBF, speed);
   SoftPWMSet(LBB, 0);
+   if (diff > 0){ 
+      SoftPWMSet(RBB, diff);
+      SoftPWMSet(RBF, 0);
+      SoftPWMSet(LFF, 0);
+      SoftPWMSet(LFB, diff);
+   }else{ 
+      SoftPWMSet(RBB, 0);
+      SoftPWMSet(RBF, diff);
+      SoftPWMSet(LFF, diff);
+      SoftPWMSet(LFB, 0);
+   }
+  
 }
 
 void moveForwardRight(int xSpeed, int ySpeed) {
-  int speed = (xSpeed + ySpeed) / 2;
-  SoftPWMSet(RFF, 0);
-  SoftPWMSet(RFB, 0);
+ int speed = sqrt(sq(xSpeed) + sq(ySpeed));
+    int diff = xSpeed - ySpeed;
+  
   SoftPWMSet(RBF, speed);
   SoftPWMSet(RBB, 0);
   SoftPWMSet(LFF, speed);
   SoftPWMSet(LFB, 0);
-  SoftPWMSet(LBF, 0);
-  SoftPWMSet(LBB, 0);
+  
+   if (diff > 0){ 
+   SoftPWMSet(RFF, 0);
+   SoftPWMSet(RFB, diff);
+   SoftPWMSet(LBF, 0);
+   SoftPWMSet(LBB, diff);
+   }else{ 
+   SoftPWMSet(RFF, diff);
+   SoftPWMSet(RFB, 0);
+   SoftPWMSet(LBF, diff);
+   SoftPWMSet(LBB, 0);
+   }
 }
 
 void moveBackwardRight(int xSpeed, int ySpeed) {
-  int speed = (xSpeed + ySpeed) / 2;
+ int speed = sqrt(sq(xSpeed) + sq(ySpeed));
+    int diff = xSpeed - ySpeed;
   SoftPWMSet(RFF, 0);
   SoftPWMSet(RFB, speed);
-  SoftPWMSet(RBF, 0);
-  SoftPWMSet(RBB, 0);
-  SoftPWMSet(LFF, 0);
-  SoftPWMSet(LFB, 0);
   SoftPWMSet(LBF, 0);
   SoftPWMSet(LBB, speed);
+   if (diff > 0){ 
+  SoftPWMSet(RBF, diff);
+  SoftPWMSet(RBB, 0);
+  SoftPWMSet(LFF, diff);
+  SoftPWMSet(LFB, 0);
+   }else{ 
+  SoftPWMSet(RBF, 0);
+  SoftPWMSet(RBB, diff);
+  SoftPWMSet(LFF, 0);
+  SoftPWMSet(LFB, diff);
+   }
 }
 
 void moveBackwardLeft(int xSpeed, int ySpeed) {
-  int speed = (xSpeed + ySpeed) / 2;
-  SoftPWMSet(RFF, 0);
-  SoftPWMSet(RFB, 0);
+  int speed = sqrt(sq(xSpeed) + sq(ySpeed));
+    int diff = xSpeed - ySpeed;
+
   SoftPWMSet(RBF, 0);
   SoftPWMSet(RBB, speed);
   SoftPWMSet(LFF, 0);
   SoftPWMSet(LFB, speed);
-  SoftPWMSet(LBF, 0);
+  
+   if (diff > 0){ 
+  SoftPWMSet(RFF, diff);
+  SoftPWMSet(RFB, 0);
+  SoftPWMSet(LBF, diff);
   SoftPWMSet(LBB, 0);
+   }else{ 
+  SoftPWMSet(RFF, 0);
+  SoftPWMSet(RFB, diff);
+  SoftPWMSet(LBF, 0);
+  SoftPWMSet(LBB, diff);
+   }
 }
 
 void rotateClockwise(int speed) {
