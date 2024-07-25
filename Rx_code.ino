@@ -206,8 +206,8 @@ void moveForwardLeft(int xSpeed, int ySpeed) {
       SoftPWMSet(LFB, diff);
    }else{ 
       SoftPWMSet(RBB, 0);
-      SoftPWMSet(RBF, diff);
-      SoftPWMSet(LFF, diff);
+      SoftPWMSet(RBF, -diff);
+      SoftPWMSet(LFF, -diff);
       SoftPWMSet(LFB, 0);
    }
   
@@ -228,9 +228,9 @@ void moveForwardRight(int xSpeed, int ySpeed) {
    SoftPWMSet(LBF, 0);
    SoftPWMSet(LBB, diff);
    }else{ 
-   SoftPWMSet(RFF, diff);
+   SoftPWMSet(RFF, -diff);
    SoftPWMSet(RFB, 0);
-   SoftPWMSet(LBF, diff);
+   SoftPWMSet(LBF, -diff);
    SoftPWMSet(LBB, 0);
    }
 }
@@ -249,9 +249,9 @@ void moveBackwardRight(int xSpeed, int ySpeed) {
   SoftPWMSet(LFB, 0);
    }else{ 
   SoftPWMSet(RBF, 0);
-  SoftPWMSet(RBB, diff);
+  SoftPWMSet(RBB, -diff);
   SoftPWMSet(LFF, 0);
-  SoftPWMSet(LFB, diff);
+  SoftPWMSet(LFB, -diff);
    }
 }
 
@@ -271,9 +271,9 @@ void moveBackwardLeft(int xSpeed, int ySpeed) {
   SoftPWMSet(LBB, 0);
    }else{ 
   SoftPWMSet(RFF, 0);
-  SoftPWMSet(RFB, diff);
+  SoftPWMSet(RFB, -diff);
   SoftPWMSet(LBF, 0);
-  SoftPWMSet(LBB, diff);
+  SoftPWMSet(LBB, -diff);
    }
 }
 
