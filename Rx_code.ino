@@ -60,13 +60,13 @@ void setup() {
   L_arm.write(0);
 
   SoftPWMBegin();
-  SoftPWMSet(RFF, 0);
-  SoftPWMSet(RFB, 0);
-  SoftPWMSet(RBB, 0);
-  SoftPWMSet(LFF, 0);
-  SoftPWMSet(LFB, 0);
-  SoftPWMSet(LBF, 0);
-  SoftPWMSet(LBB, 0);
+ // SoftPWMSet(RFF, 0);
+//  SoftPWMSet(RFB, 0);
+ // SoftPWMSet(RBB, 0);
+ // SoftPWMSet(LFF, 0);
+ // SoftPWMSet(LFB, 0);
+ // SoftPWMSet(LBF, 0);
+//  SoftPWMSet(LBB, 0);
 
 //  Serial.begin(9600);
   radio.begin();
@@ -85,7 +85,7 @@ void loop() {
 
     int ySpeed = abs(data[0])*(1.0);
     int xSpeed = abs(data[1])*(1.0);
-    int rotationSpeed = abs(data[3])*(0.8);
+    int rotationSpeed = abs(data[3])*(0.6);
 
      int hasB1 = data[4] % 2;
      int hasB2 = data[4] % 3;
@@ -150,125 +150,125 @@ digitalWrite(shootpin,HIGH);
 
 void moveForward(int speed) {
   SoftPWMSet(RFF, speed);
-  SoftPWMSet(RFB, 0);
+  digitalWrite(RFB, LOW);
   SoftPWMSet(RBF, speed);
-  SoftPWMSet(RBB, 0);
+  digitalWrite(RBB, LOW);
   SoftPWMSet(LFF, speed);
-  SoftPWMSet(LFB, 0);
+  digitalWrite(LFB, LOW);
   SoftPWMSet(LBF, speed);
-  SoftPWMSet(LBB, 0);
+  digitalWrite(LBB, LOW);
 }
 
 void moveBackward(int speed) {
-  SoftPWMSet(RFF, 0);
+  digitalWrite(RFF, LOW);
   SoftPWMSet(RFB, speed);
-  SoftPWMSet(RBF, 0);
+  digitalWrite(RBF, LOW);
   SoftPWMSet(RBB, speed);
-  SoftPWMSet(LFF, 0);
+  digitalWrite(LFF, LOW);
   SoftPWMSet(LFB, speed);
-  SoftPWMSet(LBF, 0);
+  digitalWrite(LBF, LOW);
   SoftPWMSet(LBB, speed);
 }
 
 void moveRight(int speed) {
-  SoftPWMSet(RFF, 0);
+  digitalWrite(RFF, LOW);
   SoftPWMSet(RFB, speed);
   SoftPWMSet(RBF, speed);
-  SoftPWMSet(RBB, 0);
+  digitalWrite(RBB, LOW);
   SoftPWMSet(LFF, speed);
-  SoftPWMSet(LFB, 0);
-  SoftPWMSet(LBF, 0);
+  digitalWrite(LFB, LOW);
+  digitalWrite(LBF, LOW);
   SoftPWMSet(LBB, speed);
 }
 
 void moveLeft(int speed) {
   SoftPWMSet(RFF, speed);
-  SoftPWMSet(RFB, 0);
-  SoftPWMSet(RBF, 0);
+  digitalWrite(RFB, LOW);
+  digitalWrite(RBF, LOW);
   SoftPWMSet(RBB, speed);
-  SoftPWMSet(LFF, 0);
+  digitalWrite(LFF, LOW);
   SoftPWMSet(LFB, speed);
   SoftPWMSet(LBF, speed);
-  SoftPWMSet(LBB, 0);
+  digitalWrite(LBB, LOW);
 }
 
 void moveForwardLeft(int xSpeed, int ySpeed) {
   int speed = (xSpeed + ySpeed) / 2;
   SoftPWMSet(RFF, speed);
-  SoftPWMSet(RFB, 0);
-  SoftPWMSet(RBF, 0);
-  SoftPWMSet(RBB, 0);
-  SoftPWMSet(LFF, 0);
-  SoftPWMSet(LFB, 0);
+  digitalWrite(RFB, LOW);
+  digitalWrite(RBF, LOW);
+  digitalWrite(RBB, LOW);
+  digitalWrite(LFF, LOW);
+  digitalWrite(LFB, LOW);
   SoftPWMSet(LBF, speed);
-  SoftPWMSet(LBB, 0);
+  digitalWrite(LBB, LOW);
 }
 
 void moveForwardRight(int xSpeed, int ySpeed) {
   int speed = (xSpeed + ySpeed) / 2;
-  SoftPWMSet(RFF, 0);
-  SoftPWMSet(RFB, 0);
+  digitalWrite(RFF, LOW);
+  digitalWrite(RFB, LOW);
   SoftPWMSet(RBF, speed);
-  SoftPWMSet(RBB, 0);
+  digitalWrite(RBB, LOW);
   SoftPWMSet(LFF, speed);
-  SoftPWMSet(LFB, 0);
-  SoftPWMSet(LBF, 0);
-  SoftPWMSet(LBB, 0);
+  digitalWrite(LFB, LOW);
+  digitalWrite(LBF, LOW);
+  digitalWrite(LBB, LOW);
 }
 
 void moveBackwardRight(int xSpeed, int ySpeed) {
   int speed = (xSpeed + ySpeed) / 2;
-  SoftPWMSet(RFF, 0);
+  digitalWrite(RFF, LOW);
   SoftPWMSet(RFB, speed);
-  SoftPWMSet(RBF, 0);
-  SoftPWMSet(RBB, 0);
-  SoftPWMSet(LFF, 0);
-  SoftPWMSet(LFB, 0);
-  SoftPWMSet(LBF, 0);
+  digitalWrite(RBF, LOW);
+  digitalWrite(RBB, LOW);
+  digitalWrite(LFF, LOW);
+  digitalWrite(LFB, LOW);
+  digitalWrite(LBF, LOW);
   SoftPWMSet(LBB, speed);
 }
 
 void moveBackwardLeft(int xSpeed, int ySpeed) {
   int speed = (xSpeed + ySpeed) / 2;
-  SoftPWMSet(RFF, 0);
-  SoftPWMSet(RFB, 0);
-  SoftPWMSet(RBF, 0);
+  digitalWrite(RFF, LOW);
+  digitalWrite(RFB, LOW);
+  digitalWrite(RBF, LOW);
   SoftPWMSet(RBB, speed);
-  SoftPWMSet(LFF, 0);
+  digitalWrite(LFF, LOW);
   SoftPWMSet(LFB, speed);
-  SoftPWMSet(LBF, 0);
-  SoftPWMSet(LBB, 0);
+  digitalWrite(LBF, LOW);
+  digitalWrite(LBB, LOW);
 }
 
 void rotateClockwise(int speed) {
   SoftPWMSet(RFF, speed);
-  SoftPWMSet(RFB, 0);
+  digitalWrite(RFB, LOW);
   SoftPWMSet(RBF, speed);
-  SoftPWMSet(RBB, 0);
-  SoftPWMSet(LFF, 0);
+  digitalWrite(RBB, LOW);
+  digitalWrite(LFF, LOW);
   SoftPWMSet(LFB, speed);
-  SoftPWMSet(LBF, 0);
+  digitalWrite(LBF, LOW);
   SoftPWMSet(LBB, speed);
 }
 
 void rotateCounterclockwise(int speed) {
-  SoftPWMSet(RFF, 0);
+  digitalWrite(RFF, LOW);
   SoftPWMSet(RFB, speed);
-  SoftPWMSet(RBF, 0);
+  digitalWrite(RBF, LOW);
   SoftPWMSet(RBB, speed);
   SoftPWMSet(LFF, speed);
-  SoftPWMSet(LFB, 0);
+  digitalWrite(LFB, LOW);
   SoftPWMSet(LBF, speed);
-  SoftPWMSet(LBB, 0);
+  digitalWrite(LBB, LOW);
 }
 
 void stopMotors() {
-  SoftPWMSet(RFF, 0);
-  SoftPWMSet(RFB, 0);
-  SoftPWMSet(RBF, 0);
-  SoftPWMSet(RBB, 0);
-  SoftPWMSet(LFF, 0);
-  SoftPWMSet(LFB, 0);
-  SoftPWMSet(LBF, 0);
-  SoftPWMSet(LBB, 0);
+  digitalWrite(RFF, LOW);
+  digitalWrite(RFB, LOW);
+  digitalWrite(RBF, LOW);
+  digitalWrite(RBB, LOW);
+  digitalWrite(LFF, LOW);
+  digitalWrite(LFB, LOW);
+  digitalWrite(LBF, LOW);
+  digitalWrite(LBB, LOW);
 }
