@@ -195,7 +195,7 @@ void moveLeft(int speed) {
 void moveForwardLeft(int xSpeed, int ySpeed) {
   int speed = sqrt(sq(xSpeed) + sq(ySpeed));
    speed = map(speed,0,361,0,255);
-   int diff = xSpeed - ySpeed;
+    int diff = xSpeed - ySpeed;
   SoftPWMSet(RFF, speed);
   SoftPWMSet(RFB, 0);
   SoftPWMSet(LBF, speed);
