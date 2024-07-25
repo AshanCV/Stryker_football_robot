@@ -1,5 +1,5 @@
 /* Stryker - Transmitter 
-   14.07.2024
+   25.07.2024
    Programme for Radio controlled car with 4 mecanum wheels.
 */
 
