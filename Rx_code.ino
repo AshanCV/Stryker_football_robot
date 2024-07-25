@@ -194,6 +194,7 @@ void moveLeft(int speed) {
 
 void moveForwardLeft(int xSpeed, int ySpeed) {
   int speed = sqrt(sq(xSpeed) + sq(ySpeed));
+   speed = map(speed,0,361,0,255);
    int diff = xSpeed - ySpeed;
   SoftPWMSet(RFF, speed);
   SoftPWMSet(RFB, 0);
@@ -215,6 +216,7 @@ void moveForwardLeft(int xSpeed, int ySpeed) {
 
 void moveForwardRight(int xSpeed, int ySpeed) {
  int speed = sqrt(sq(xSpeed) + sq(ySpeed));
+   speed = map(speed,0,361,0,255);
     int diff = xSpeed - ySpeed;
   
   SoftPWMSet(RBF, speed);
@@ -237,6 +239,7 @@ void moveForwardRight(int xSpeed, int ySpeed) {
 
 void moveBackwardRight(int xSpeed, int ySpeed) {
  int speed = sqrt(sq(xSpeed) + sq(ySpeed));
+   speed = map(speed,0,361,0,255);
     int diff = xSpeed - ySpeed;
   SoftPWMSet(RFF, 0);
   SoftPWMSet(RFB, speed);
@@ -257,6 +260,7 @@ void moveBackwardRight(int xSpeed, int ySpeed) {
 
 void moveBackwardLeft(int xSpeed, int ySpeed) {
   int speed = sqrt(sq(xSpeed) + sq(ySpeed));
+   speed = map(speed,0,361,0,255);
     int diff = xSpeed - ySpeed;
 
   SoftPWMSet(RBF, 0);
