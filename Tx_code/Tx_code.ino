@@ -1,5 +1,5 @@
 /* Stryker - Transmitter 
-   25.07.2024
+   24.03.2025
    Programme for Radio controlled car with 4 mecanum wheels.
 */
 
@@ -10,15 +10,19 @@
 //#include <I2Cdev.h>
 #include <Wire.h>
 
-#define Rx A1
-#define Ry A0
-#define Lx A3
-#define Ly A2
-#define Rbutton1 7
-#define Rbutton2 6
-#define Lbutton1 A5
+#define Rx A0
+#define Ry A1
+//#define swR 8
+#define Lx A4
+#define Ly A5
+//#define swL 7
+#define Rbutton1 2
+#define Rbutton2 3
+#define Lbutton1 4
 #define Lbutton2 5
-#define shootButton A4
+#define shootButton 6
+//#define sw_v1 A3
+//define sw_v2 A2
 
 int data[6];
 int lx; int ly;
@@ -30,6 +34,15 @@ const byte password[6] = "00001"; //*enter a security code //
 
 
 void setup() {
+
+pinMode(Rbutton1,INPUT);
+pinMode(Rbutton2,INPUT);
+pinMode(Lbutton1,INPUT);
+pinMode(Lbutton2,INPUT);
+pinMode(shootButton,INPUT);
+//pinMode(swL,INPUT);
+//pinMode(swR,INPUT);
+
  
 Serial.begin(9600);
   Wire.begin();

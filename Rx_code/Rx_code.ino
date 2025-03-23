@@ -1,6 +1,6 @@
 //****************************************
 /* Stryker - Receiver 
-   25.07.2024
+   24.03.2025
    Programme for Radio controlled car with 4 mecanum wheels.
 */
 //****************************************
@@ -43,7 +43,7 @@ void setup() {
   pinMode(LFB, OUTPUT);
   pinMode(LBF, OUTPUT);
   pinMode(LBB, OUTPUT);
-   pinMode(shootpin, OUTPUT);
+  pinMode(shootpin, OUTPUT);
   digitalWrite(RFF, LOW);
   digitalWrite(RFB, LOW);
   digitalWrite(RBF, LOW);
@@ -52,7 +52,7 @@ void setup() {
   digitalWrite(LFB, LOW);
   digitalWrite(LBF, LOW);
   digitalWrite(LBB, LOW);
-   digitalWrite(shootpin, LOW);
+  digitalWrite(shootpin, LOW);
 
   R_arm.attach(R_arm_pin);
   L_arm.attach(L_arm_pin);
@@ -68,7 +68,7 @@ void setup() {
   SoftPWMSet(LBF, 0);
   SoftPWMSet(LBB, 0);
 
-//  Serial.begin(9600);
+  Serial.begin(9600);
   radio.begin();
   radio.openReadingPipe(0, password);
   radio.setPALevel(RF24_PA_MIN);
@@ -81,23 +81,21 @@ void loop() {
 
     // Serial.print(data[0]); Serial.print("    "); Serial.print(data[1]); Serial.print("    "); 
     // Serial.print(data[2]); Serial.print("    "); Serial.print(data[3]); Serial.print("    ");
-   //  Serial.print(data[4]); Serial.println("    ");
+    //Serial.print(data[4]); Serial.println("    ");
 
+     if (data[5]){
+    digitalWrite(shootpin,HIGH);  
+    }else{
+      digitalWrite(shootpin, LOW);
+    }
     int ySpeed = abs(data[0])*(1.0);
     int xSpeed = abs(data[1])*(1.0);
-    int rotationSpeed = abs(data[3])*(0.6);
+    int rotationSpeed = abs(data[3])*(0.7);
 
      int hasB1 = data[4] % 2;
      int hasB2 = data[4] % 3;
      int hasB3 = data[4] % 5;
      int hasB4 = data[4] % 7;
-
-     if (data[5]){
-digitalWrite(shootpin,HIGH);  
-}else{
-  digitalWrite(shootpin, LOW);
-}
-
      
     if (hasB1 == 0) {
         R_arm.write(180);
@@ -115,34 +113,34 @@ digitalWrite(shootpin,HIGH);
       stopMotors();
       //Serial.println("data recv- stop");
     }else if (data[3] > M) {
-      rotateClockwise(rotationSpeed);
+      rotateCounterclockwise(rotationSpeed);
       //Serial.println("rotate CW");
     } else if (data[3] < -M) {
-      rotateCounterclockwise(rotationSpeed);
+      rotateClockwise(rotationSpeed);
       //Serial.println("rotate CCW");
     } else if (data[0] > M && abs(data[1]) < M) {
-      moveForward(ySpeed);
+      moveBackward(ySpeed);
       //Serial.println("data recv- forw");
     } else if (data[0] < -M && abs(data[1]) < M) {
-      moveBackward(ySpeed);
+      moveForward(ySpeed);
       //Serial.println("data recv- bacck");
     } else if (abs(data[0]) < M && data[1] < -M) {
-      moveRight(xSpeed);
+      moveLeft(xSpeed);
       //Serial.println("data recv- Right");
     } else if (abs(data[0]) < M && data[1] > M) {
-      moveLeft(xSpeed);
+      moveRight(xSpeed);
       //Serial.println("data recv- Left");
     } else if (data[0] > M && data[1] < -M) {
-      moveForwardRight(xSpeed, ySpeed);
+      moveBackwardRight(xSpeed, ySpeed);
       //Serial.println("data recv- R trn");
     } else if (data[0] > M && data[1] > M) {
-      moveForwardLeft(xSpeed, ySpeed);
+      moveBackwardLeft(xSpeed, ySpeed);
       //Serial.println("data recv- L trn");
     } else if (data[0] < -M && data[1] < -M) {
-      moveBackwardRight(xSpeed, ySpeed);
+      moveForwardRight(xSpeed, ySpeed);
       //Serial.println("R trun back");
     } else if (data[0] < -M && data[1] > M) {
-      moveBackwardLeft(xSpeed, ySpeed);
+      moveForwardLeft(xSpeed, ySpeed);
       //Serial.println("L trun back");
     } 
   }
@@ -193,92 +191,51 @@ void moveLeft(int speed) {
 }
 
 void moveForwardLeft(int xSpeed, int ySpeed) {
-  int speed = sqrt(sq(xSpeed) + sq(ySpeed));
-   speed = map(speed,0,361,0,255);
-    int diff = xSpeed - ySpeed;
+  int speed = (xSpeed + ySpeed) / 2;
   SoftPWMSet(RFF, speed);
   SoftPWMSet(RFB, 0);
+  SoftPWMSet(RBF, 0);
+  SoftPWMSet(RBB, 0);
+  SoftPWMSet(LFF, 0);
+  SoftPWMSet(LFB, 0);
   SoftPWMSet(LBF, speed);
   SoftPWMSet(LBB, 0);
-   if (diff > 0){ 
-      SoftPWMSet(RBB,  abs(diff));
-      SoftPWMSet(RBF, 0);
-      SoftPWMSet(LFF, 0);
-      SoftPWMSet(LFB,  abs(diff));
-   }else{ 
-      SoftPWMSet(RBB, 0);
-      SoftPWMSet(RBF, abs(diff));
-      SoftPWMSet(LFF,  abs(diff));
-      SoftPWMSet(LFB, 0);
-   }
-  
 }
 
 void moveForwardRight(int xSpeed, int ySpeed) {
- int speed = sqrt(sq(xSpeed) + sq(ySpeed));
-   speed = map(speed,0,361,0,255);
-    int diff = xSpeed - ySpeed;
-  
+  int speed = (xSpeed + ySpeed) / 2;
+  SoftPWMSet(RFF, 0);
+  SoftPWMSet(RFB, 0);
   SoftPWMSet(RBF, speed);
   SoftPWMSet(RBB, 0);
   SoftPWMSet(LFF, speed);
   SoftPWMSet(LFB, 0);
-  
-   if (diff > 0){ 
-   SoftPWMSet(RFF, 0);
-   SoftPWMSet(RFB,  abs(diff));
-   SoftPWMSet(LBF, 0);
-   SoftPWMSet(LBB,  abs(diff));
-   }else{ 
-   SoftPWMSet(RFF,  abs(diff));
-   SoftPWMSet(RFB, 0);
-   SoftPWMSet(LBF,  abs(diff));
-   SoftPWMSet(LBB, 0);
-   }
+  SoftPWMSet(LBF, 0);
+  SoftPWMSet(LBB, 0);
 }
 
 void moveBackwardRight(int xSpeed, int ySpeed) {
- int speed = sqrt(sq(xSpeed) + sq(ySpeed));
-   speed = map(speed,0,361,0,255);
-    int diff = xSpeed - ySpeed;
+  int speed = (xSpeed + ySpeed) / 2;
   SoftPWMSet(RFF, 0);
   SoftPWMSet(RFB, speed);
+  SoftPWMSet(RBF, 0);
+  SoftPWMSet(RBB, 0);
+  SoftPWMSet(LFF, 0);
+  SoftPWMSet(LFB, 0);
   SoftPWMSet(LBF, 0);
   SoftPWMSet(LBB, speed);
-   if (diff > 0){ 
-  SoftPWMSet(RBF,  abs(diff));
-  SoftPWMSet(RBB, 0);
-  SoftPWMSet(LFF,  abs(diff));
-  SoftPWMSet(LFB, 0);
-   }else{ 
-  SoftPWMSet(RBF, 0);
-  SoftPWMSet(RBB,  abs(diff));
-  SoftPWMSet(LFF, 0);
-  SoftPWMSet(LFB,  abs(diff));
-   }
 }
 
 void moveBackwardLeft(int xSpeed, int ySpeed) {
-  int speed = sqrt(sq(xSpeed) + sq(ySpeed));
-   speed = map(speed,0,361,0,255);
-    int diff = xSpeed - ySpeed;
-
+  int speed = (xSpeed + ySpeed) / 2;
+  SoftPWMSet(RFF, 0);
+  SoftPWMSet(RFB, 0);
   SoftPWMSet(RBF, 0);
   SoftPWMSet(RBB, speed);
   SoftPWMSet(LFF, 0);
   SoftPWMSet(LFB, speed);
-  
-   if (diff > 0){ 
-  SoftPWMSet(RFF,  abs(diff));
-  SoftPWMSet(RFB, 0);
-  SoftPWMSet(LBF,  abs(diff));
-  SoftPWMSet(LBB, 0);
-   }else{ 
-  SoftPWMSet(RFF, 0);
-  SoftPWMSet(RFB,  abs(diff));
   SoftPWMSet(LBF, 0);
-  SoftPWMSet(LBB,  abs(diff));
-   }
+  SoftPWMSet(LBB, 0);
 }
 
 void rotateClockwise(int speed) {
