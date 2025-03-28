@@ -131,16 +131,16 @@ void loop() {
       moveRight(xSpeed);
       //Serial.println("data recv- Left");
     } else if (data[0] > M && data[1] < -M) {
-      moveBackwardRight(xSpeed, ySpeed);
+      moveBackwardLeft(xSpeed, ySpeed);
       //Serial.println("data recv- R trn");
     } else if (data[0] > M && data[1] > M) {
-      moveBackwardLeft(xSpeed, ySpeed);
+      moveBackwardRight(xSpeed, ySpeed);
       //Serial.println("data recv- L trn");
     } else if (data[0] < -M && data[1] < -M) {
-      moveForwardRight(xSpeed, ySpeed);
+      moveForwardLeft(xSpeed, ySpeed);
       //Serial.println("R trun back");
     } else if (data[0] < -M && data[1] > M) {
-      moveForwardLeft(xSpeed, ySpeed);
+      moveForwardRight(xSpeed, ySpeed);
       //Serial.println("L trun back");
     } 
   }
