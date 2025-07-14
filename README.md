@@ -21,10 +21,9 @@ Watch the robot in action: [YouTube Demo](https://youtube.com/shorts/qgsyHFl21-w
 - CAD modeling of assemble [Main Robot](https://cad.onshape.com/documents/24fb6443f5c698779b902b45/w/d209e617d7a3a6ec1fa9ffd6/e/e4b6cdc9be34eab5455bca89) , [Remote controller](https://cad.onshape.com/documents/e37909807e17f18dce7fd7ae/w/ba50eb75d137d1f228ea9260/e/a4ffc997a3116ba61481ee56)
 
 ## 📁 Repository Contents
-- `/hardware`: PCB schematics, layout, and chassis designs
-- `/firmware`: Control logic and microcontroller code. updated code can be found in "Rx_code" and "Tx_code".
-- `/media`: Photos and demo videos (or thumbnails/previews)
-- `README.md`: Project overview and documentation
+
+Control logic and microcontroller code. updated code can be found in "Rx_code" and "Tx_code".
+
 
 ---
 
