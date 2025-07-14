@@ -16,8 +16,9 @@ Watch the robot in action: [YouTube Demo](https://youtube.com/shorts/qgsyHFl21-w
 ## 🧠 Technologies Used
 - Embedded C / Arduino
 - NRF24L01 wireless protocol
-- Custom PCB design tools (Altium Designer)
+- Custom PCB design tools (Altium Designer, Proteus)
 - Servo and solenoid driver integration
+- CAD modeling of assemble [Main Robot](https://cad.onshape.com/documents/24fb6443f5c698779b902b45/w/d209e617d7a3a6ec1fa9ffd6/e/e4b6cdc9be34eab5455bca89) , [Remote controller](https://cad.onshape.com/documents/e37909807e17f18dce7fd7ae/w/ba50eb75d137d1f228ea9260/e/a4ffc997a3116ba61481ee56)
 
 ## 📁 Repository Contents
 - `/hardware`: PCB schematics, layout, and chassis designs
